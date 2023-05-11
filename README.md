@@ -8,17 +8,18 @@
 
 
 ## 目录结构描述
-##### ├── Readme.md                   // help
-##### ├── main.cpp                    // 主函数
-##### ├── include                     // 包含文件
-##### │   ├── CTP_API
-##### │   ├── rapidjson                
-##### │   ├── spdlog         
-##### │   ├── CustomTradeSpi.h                
-##### │   └── httplib.h              
-##### ├── CustomTradeSpi.cpp 
-##### ├── dll                         //动态链接库
-##### │   └── libthosttraderapi_sm.so
-##### ├── CMakeLists.txt                     
-##### └── bin
-#####     └── userlist.json           // 用户配置文件
+```
+ ├── Readme.md                   // help
+ ├── main.cpp                    // 主函数
+ ├── include                     // 包含文件
+ │   ├── CTP_API
+ │   ├── rapidjson                
+ │   ├── spdlog         
+ │   ├── CustomTradeSpi.h                
+ │   └── httplib.h              
+ ├── CustomTradeSpi.cpp 
+ ├── dll                         //动态链接库
+ │   └── libthosttraderapi_sm.so
+ ├── CMakeLists.txt                     
+ └── bin
+     └── userlist.json           // 用户配置文件
