@@ -16,20 +16,20 @@
 
 
 
-// ---- È«¾Ö²ÎÊıÉùÃ÷ ---- //
-extern TThostFtdcBrokerIDType gBrokerID;                      // Ä£Äâ¾­¼ÍÉÌ´úÂë
-extern TThostFtdcInvestorIDType gInvesterID;                  // Í¶×ÊÕßÕË»§Ãû
-extern TThostFtdcPasswordType gInvesterPassword;              // Í¶×ÊÕßÃÜÂë
-extern CThostFtdcTraderApi* g_pTradeUserApi;                  // ½»Ò×Ö¸Õë
-extern char gTradeFrontAddr[];                                // Ä£Äâ½»Ò×Ç°ÖÃµØÖ·
-extern TThostFtdcInstrumentIDType g_pTradeInstrumentID;       // Ëù½»Ò×µÄºÏÔ¼´úÂë
-extern TThostFtdcDirectionType gTradeDirection;               // ÂòÂô·½Ïò
-extern TThostFtdcPriceType gLimitPrice;                       // ½»Ò×¼Û¸ñ
+// ---- å…¨å±€å‚æ•°å£°æ˜ ---- //
+extern TThostFtdcBrokerIDType gBrokerID;                      // æ¨¡æ‹Ÿç»çºªå•†ä»£ç 
+extern TThostFtdcInvestorIDType gInvesterID;                  // æŠ•èµ„è€…è´¦æˆ·å
+extern TThostFtdcPasswordType gInvesterPassword;              // æŠ•èµ„è€…å¯†ç 
+extern CThostFtdcTraderApi* g_pTradeUserApi;                  // äº¤æ˜“æŒ‡é’ˆ
+extern char gTradeFrontAddr[];                                // æ¨¡æ‹Ÿäº¤æ˜“å‰ç½®åœ°å€
+extern TThostFtdcInstrumentIDType g_pTradeInstrumentID;       // æ‰€äº¤æ˜“çš„åˆçº¦ä»£ç 
+extern TThostFtdcDirectionType gTradeDirection;               // ä¹°å–æ–¹å‘
+extern TThostFtdcPriceType gLimitPrice;                       // äº¤æ˜“ä»·æ ¼
 
-// »á»°²ÎÊı
-TThostFtdcFrontIDType	trade_front_id;	//Ç°ÖÃ±àºÅ
-TThostFtdcSessionIDType	session_id;	//»á»°±àºÅ
-TThostFtdcOrderRefType	order_ref;	//±¨µ¥ÒıÓÃ
+// ä¼šè¯å‚æ•°
+TThostFtdcFrontIDType	trade_front_id;	//å‰ç½®ç¼–å·
+TThostFtdcSessionIDType	session_id;	//ä¼šè¯ç¼–å·
+TThostFtdcOrderRefType	order_ref;	//æŠ¥å•å¼•ç”¨
 time_t lOrderTime;
 time_t lOrderOkTime;
 
@@ -49,11 +49,11 @@ CustomTradeSpi::CustomTradeSpi(const std::string& username,int contractAlertNum,
 void CustomTradeSpi::OnFrontConnected()
 {
 	std::unique_lock<std::mutex> unique(mt);
-	std::cout << "=====½¨Á¢ÍøÂçÁ¬½Ó³É¹¦=====" << std::endl;
+	std::cout << "=====å»ºç«‹ç½‘ç»œè¿æ¥æˆåŠŸ=====" << std::endl;
 
-	m_logger->info("=====½¨Á¢ÍøÂçÁ¬½Ó³É¹¦=====");
+	m_logger->info("=====å»ºç«‹ç½‘ç»œè¿æ¥æˆåŠŸ=====");
 	m_logger->flush();
-	// ¿ªÊ¼µÇÂ¼
+	// å¼€å§‹ç™»å½•
 	unique.unlock();
 	reqUserLogin();
 }
@@ -69,35 +69,35 @@ void CustomTradeSpi::OnRspUserLogin(
 	{
 		std::unique_lock<std::mutex> unique(mt);
 		std::cout << "------------------------------------------------" << std::endl;
-		std::cout << "=====ÕË»§µÇÂ¼³É¹¦=====" << std::endl;
+		std::cout << "=====è´¦æˆ·ç™»å½•æˆåŠŸ=====" << std::endl;
 		loginFlag = true;
-		std::cout << "½»Ò×ÈÕ£º " << pRspUserLogin->TradingDay << std::endl;
-		std::cout << "µÇÂ¼Ê±¼ä£º " << pRspUserLogin->LoginTime << std::endl;
-		std::cout << "¾­¼ÍÉÌ£º " << pRspUserLogin->BrokerID << std::endl;
-		std::cout << "ÕÊ»§Ãû£º " << pRspUserLogin->UserID << std::endl;
+		std::cout << "äº¤æ˜“æ—¥ï¼š " << pRspUserLogin->TradingDay << std::endl;
+		std::cout << "ç™»å½•æ—¶é—´ï¼š " << pRspUserLogin->LoginTime << std::endl;
+		std::cout << "ç»çºªå•†ï¼š " << pRspUserLogin->BrokerID << std::endl;
+		std::cout << "å¸æˆ·åï¼š " << pRspUserLogin->UserID << std::endl;
 		std::cout << "------------------------------------------------" << std::endl;
 
 
-		m_logger->info("ÕË»§µÇÂ¼³É¹¦£¡ ½»Ò×ÈÕ£º{},µÇÂ¼Ê±¼ä£º{},¾­¼ÍÉÌ£º{},ÕÊ»§Ãû£º{}",
+		m_logger->info("è´¦æˆ·ç™»å½•æˆåŠŸï¼ äº¤æ˜“æ—¥ï¼š{},ç™»å½•æ—¶é—´ï¼š{},ç»çºªå•†ï¼š{},å¸æˆ·åï¼š{}",
 			pRspUserLogin->TradingDay, pRspUserLogin->LoginTime, pRspUserLogin->BrokerID, pRspUserLogin->UserID);
 
-		// ±£´æ»á»°²ÎÊı
+		// ä¿å­˜ä¼šè¯å‚æ•°
 		trade_front_id = pRspUserLogin->FrontID;
 		session_id = pRspUserLogin->SessionID;
 		strcpy(order_ref, pRspUserLogin->MaxOrderRef);
 
 		unique.unlock();
 
-		// Í¶×ÊÕß½áËã½á¹ûÈ·ÈÏ
+		// æŠ•èµ„è€…ç»“ç®—ç»“æœç¡®è®¤
 		//reqSettlementInfoConfirm();
 
-		//²éÑ¯±¨µ¥
+		//æŸ¥è¯¢æŠ¥å•
 		reqQryOrder();
 
 	}
 	else {
-		std::cout << "=====ÕË»§µÇÂ¼Ê§°Ü=====" << std::endl;
-		m_logger->error("ÕË»§µÇÂ¼Ê§°Ü");
+		std::cout << "=====è´¦æˆ·ç™»å½•å¤±è´¥=====" << std::endl;
+		m_logger->error("è´¦æˆ·ç™»å½•å¤±è´¥");
 	}
 
 	m_logger->flush();
@@ -111,13 +111,13 @@ void CustomTradeSpi::OnRspError(CThostFtdcRspInfoField* pRspInfo, int nRequestID
 
 void CustomTradeSpi::OnFrontDisconnected(int nReason)
 {
-	m_logger->error("ÍøÂçÁ¬½Ó¶Ï¿ª,´íÎóÂë£º{}", nReason);
+	m_logger->error("ç½‘ç»œè¿æ¥æ–­å¼€,é”™è¯¯ç ï¼š{}", nReason);
 	m_logger->flush();
 }
 
 void CustomTradeSpi::OnHeartBeatWarning(int nTimeLapse)
 {
-	m_logger->error("ÍøÂçĞÄÌø³¬Ê±,¾àÉÏ´ÎÁ¬½ÓÊ±¼ä£º{}", nTimeLapse);
+	m_logger->error("ç½‘ç»œå¿ƒè·³è¶…æ—¶,è·ä¸Šæ¬¡è¿æ¥æ—¶é—´ï¼š{}", nTimeLapse);
 	m_logger->flush();
 }
 
@@ -129,12 +129,12 @@ void CustomTradeSpi::OnRspUserLogout(
 {
 	if (!isErrorRspInfo(pRspInfo))
 	{
-		loginFlag = false; // µÇ³ö¾Í²»ÄÜÔÙ½»Ò×ÁË 
-		//std::cout << "=====ÕË»§µÇ³ö³É¹¦=====" << std::endl;
-		//std::cout << "¾­¼ÍÉÌ£º " << pUserLogout->BrokerID << std::endl;
-		//std::cout << "ÕÊ»§Ãû£º " << pUserLogout->UserID << std::endl;
+		loginFlag = false; // ç™»å‡ºå°±ä¸èƒ½å†äº¤æ˜“äº† 
+		//std::cout << "=====è´¦æˆ·ç™»å‡ºæˆåŠŸ=====" << std::endl;
+		//std::cout << "ç»çºªå•†ï¼š " << pUserLogout->BrokerID << std::endl;
+		//std::cout << "å¸æˆ·åï¼š " << pUserLogout->UserID << std::endl;
 
-		m_logger->info("ÕË»§µÇ³ö³É¹¦,¾­¼ÍÉÌ£º{},ÕÊ»§Ãû£º{}", pUserLogout->BrokerID, pUserLogout->UserID);
+		m_logger->info("è´¦æˆ·ç™»å‡ºæˆåŠŸ,ç»çºªå•†ï¼š{},å¸æˆ·åï¼š{}", pUserLogout->BrokerID, pUserLogout->UserID);
 		m_logger->flush();
 	}
 }
@@ -148,13 +148,13 @@ void CustomTradeSpi::OnRspSettlementInfoConfirm(
 	if (!isErrorRspInfo(pRspInfo))
 	{
 		std::unique_lock<std::mutex> unique(mt);
-		//std::cout << "=====Í¶×ÊÕß½áËã½á¹ûÈ·ÈÏ³É¹¦=====" << std::endl;
-		//std::cout << "È·ÈÏÈÕÆÚ£º " << pSettlementInfoConfirm->ConfirmDate << std::endl;
-		//std::cout << "È·ÈÏÊ±¼ä£º " << pSettlementInfoConfirm->ConfirmTime << std::endl;
+		//std::cout << "=====æŠ•èµ„è€…ç»“ç®—ç»“æœç¡®è®¤æˆåŠŸ=====" << std::endl;
+		//std::cout << "ç¡®è®¤æ—¥æœŸï¼š " << pSettlementInfoConfirm->ConfirmDate << std::endl;
+		//std::cout << "ç¡®è®¤æ—¶é—´ï¼š " << pSettlementInfoConfirm->ConfirmTime << std::endl;
 
 		unique.unlock();
 
-		// ÇëÇó²éÑ¯ºÏÔ¼
+		// è¯·æ±‚æŸ¥è¯¢åˆçº¦
 		//reqQueryInstrument();
 
 	}
@@ -170,16 +170,16 @@ void CustomTradeSpi::OnRspQryInstrument(
 	if (!isErrorRspInfo(pRspInfo))
 	{
 		std::unique_lock<std::mutex> unique(mt);
-		//std::cout << "=====²éÑ¯ºÏÔ¼½á¹û³É¹¦=====" << std::endl;
-		//std::cout << "½»Ò×Ëù´úÂë£º " << pInstrument->ExchangeID << std::endl;
-		//std::cout << "ºÏÔ¼´úÂë£º " << pInstrument->InstrumentID << std::endl;
-		//std::cout << "ºÏÔ¼ÔÚ½»Ò×ËùµÄ´úÂë£º " << pInstrument->ExchangeInstID << std::endl;
-		//std::cout << "Ö´ĞĞ¼Û£º " << pInstrument->StrikePrice << std::endl;
-		//std::cout << "µ½ÆÚÈÕ£º " << pInstrument->EndDelivDate << std::endl;
-		//std::cout << "µ±Ç°½»Ò××´Ì¬£º " << pInstrument->IsTrading << std::endl;
+		//std::cout << "=====æŸ¥è¯¢åˆçº¦ç»“æœæˆåŠŸ=====" << std::endl;
+		//std::cout << "äº¤æ˜“æ‰€ä»£ç ï¼š " << pInstrument->ExchangeID << std::endl;
+		//std::cout << "åˆçº¦ä»£ç ï¼š " << pInstrument->InstrumentID << std::endl;
+		//std::cout << "åˆçº¦åœ¨äº¤æ˜“æ‰€çš„ä»£ç ï¼š " << pInstrument->ExchangeInstID << std::endl;
+		//std::cout << "æ‰§è¡Œä»·ï¼š " << pInstrument->StrikePrice << std::endl;
+		//std::cout << "åˆ°æœŸæ—¥ï¼š " << pInstrument->EndDelivDate << std::endl;
+		//std::cout << "å½“å‰äº¤æ˜“çŠ¶æ€ï¼š " << pInstrument->IsTrading << std::endl;
 
 		unique.unlock();
-		// ÇëÇó²éÑ¯Í¶×ÊÕß×Ê½ğÕË»§
+		// è¯·æ±‚æŸ¥è¯¢æŠ•èµ„è€…èµ„é‡‘è´¦æˆ·
 		//reqQueryTradingAccount();
 	}
 }
@@ -193,15 +193,15 @@ void CustomTradeSpi::OnRspQryTradingAccount(
 	if (!isErrorRspInfo(pRspInfo))
 	{
 		std::unique_lock<std::mutex> unique(mt);
-		//std::cout << "=====²éÑ¯Í¶×ÊÕß×Ê½ğÕË»§³É¹¦=====" << std::endl;
-		//std::cout << "Í¶×ÊÕßÕËºÅ£º " << pTradingAccount->AccountID << std::endl;
-		//std::cout << "¿ÉÓÃ×Ê½ğ£º " << pTradingAccount->Available << std::endl;
-		//std::cout << "¿ÉÈ¡×Ê½ğ£º " << pTradingAccount->WithdrawQuota << std::endl;
-		//std::cout << "µ±Ç°±£Ö¤½ğ: " << pTradingAccount->CurrMargin << std::endl;
-		//std::cout << "Æ½²ÖÓ¯¿÷£º " << pTradingAccount->CloseProfit << std::endl;
+		//std::cout << "=====æŸ¥è¯¢æŠ•èµ„è€…èµ„é‡‘è´¦æˆ·æˆåŠŸ=====" << std::endl;
+		//std::cout << "æŠ•èµ„è€…è´¦å·ï¼š " << pTradingAccount->AccountID << std::endl;
+		//std::cout << "å¯ç”¨èµ„é‡‘ï¼š " << pTradingAccount->Available << std::endl;
+		//std::cout << "å¯å–èµ„é‡‘ï¼š " << pTradingAccount->WithdrawQuota << std::endl;
+		//std::cout << "å½“å‰ä¿è¯é‡‘: " << pTradingAccount->CurrMargin << std::endl;
+		//std::cout << "å¹³ä»“ç›ˆäºï¼š " << pTradingAccount->CloseProfit << std::endl;
 
 		unique.unlock();
-		// ÇëÇó²éÑ¯Í¶×ÊÕß³Ö²Ö
+		// è¯·æ±‚æŸ¥è¯¢æŠ•èµ„è€…æŒä»“
 		//reqQueryInvestorPosition();
 	}
 }
@@ -215,22 +215,22 @@ void CustomTradeSpi::OnRspQryInvestorPosition(
 	if (!isErrorRspInfo(pRspInfo))
 	{
 		std::unique_lock<std::mutex> unique(mt);
-		//std::cout << "=====²éÑ¯Í¶×ÊÕß³Ö²Ö³É¹¦=====" << std::endl;
+		//std::cout << "=====æŸ¥è¯¢æŠ•èµ„è€…æŒä»“æˆåŠŸ=====" << std::endl;
 		if (pInvestorPosition)
 		{
-			//std::cout << "ºÏÔ¼´úÂë£º " << pInvestorPosition->InstrumentID << std::endl;
-			//std::cout << "¿ª²Ö¼Û¸ñ£º " << pInvestorPosition->OpenAmount << std::endl;
-			//std::cout << "¿ª²ÖÁ¿£º " << pInvestorPosition->OpenVolume << std::endl;
-			//std::cout << "¿ª²Ö·½Ïò£º " << pInvestorPosition->PosiDirection << std::endl;
-			//std::cout << "Õ¼ÓÃ±£Ö¤½ğ£º" << pInvestorPosition->UseMargin << std::endl;
+			//std::cout << "åˆçº¦ä»£ç ï¼š " << pInvestorPosition->InstrumentID << std::endl;
+			//std::cout << "å¼€ä»“ä»·æ ¼ï¼š " << pInvestorPosition->OpenAmount << std::endl;
+			//std::cout << "å¼€ä»“é‡ï¼š " << pInvestorPosition->OpenVolume << std::endl;
+			//std::cout << "å¼€ä»“æ–¹å‘ï¼š " << pInvestorPosition->PosiDirection << std::endl;
+			//std::cout << "å ç”¨ä¿è¯é‡‘ï¼š" << pInvestorPosition->UseMargin << std::endl;
 		}
 		else
-			//std::cout << "----->¸ÃºÏÔ¼Î´³Ö²Ö" << std::endl;
+			//std::cout << "----->è¯¥åˆçº¦æœªæŒä»“" << std::endl;
 
 			unique.unlock();
 
 
-		// ±¨µ¥Â¼ÈëÇëÇó£¨ÕâÀïÊÇÒ»²¿½Ó¿Ú£¬´Ë´¦ÊÇ°´Ë³ĞòÖ´ĞĞ£©
+		// æŠ¥å•å½•å…¥è¯·æ±‚ï¼ˆè¿™é‡Œæ˜¯ä¸€éƒ¨æ¥å£ï¼Œæ­¤å¤„æ˜¯æŒ‰é¡ºåºæ‰§è¡Œï¼‰
 		if (loginFlag)
 		{
 			//reqOrderInsert();
@@ -239,10 +239,10 @@ void CustomTradeSpi::OnRspQryInvestorPosition(
 
 
 		//if (loginFlag)
-		//	reqOrderInsertWithParams(g_pTradeInstrumentID, gLimitPrice, 1, gTradeDirection); // ×Ô¶¨ÒåÒ»±Ê½»Ò×
+		//	reqOrderInsertWithParams(g_pTradeInstrumentID, gLimitPrice, 1, gTradeDirection); // è‡ªå®šä¹‰ä¸€ç¬”äº¤æ˜“
 
-		// ²ßÂÔ½»Ò×
-		//std::cout << "=====¿ªÊ¼½øÈë²ßÂÔ½»Ò×=====" << std::endl;
+		// ç­–ç•¥äº¤æ˜“
+		//std::cout << "=====å¼€å§‹è¿›å…¥ç­–ç•¥äº¤æ˜“=====" << std::endl;
 		//while (loginFlag)
 		//	StrategyCheckAndTrade(g_pTradeInstrumentID, this);
 	}
@@ -255,14 +255,14 @@ void CustomTradeSpi::OnRspQryOrder(CThostFtdcOrderField* pOrder, CThostFtdcRspIn
 	{
 		std::unique_lock<std::mutex> unique(mt);
 		std::cout << "------------------------------------------------" << std::endl;
-		std::cout << "=====ÇëÇó²éÑ¯±¨µ¥³É¹¦=====" << std::endl;
-		std::cout << "ºÏÔ¼´úÂë£º " << pOrder->InstrumentID << std::endl;
-		std::cout << "¼Û¸ñ£º " << pOrder->LimitPrice << std::endl;
-		std::cout << "ÊıÁ¿£º " << pOrder->VolumeTotalOriginal << std::endl;
-		std::cout << "¿ª²Ö·½Ïò£º " << pOrder->Direction << std::endl;
+		std::cout << "=====è¯·æ±‚æŸ¥è¯¢æŠ¥å•æˆåŠŸ=====" << std::endl;
+		std::cout << "åˆçº¦ä»£ç ï¼š " << pOrder->InstrumentID << std::endl;
+		std::cout << "ä»·æ ¼ï¼š " << pOrder->LimitPrice << std::endl;
+		std::cout << "æ•°é‡ï¼š " << pOrder->VolumeTotalOriginal << std::endl;
+		std::cout << "å¼€ä»“æ–¹å‘ï¼š " << pOrder->Direction << std::endl;
 		std::cout << "------------------------------------------------" << std::endl;
 
-		m_logger->info("ÇëÇó²éÑ¯±¨µ¥³É¹¦!ºÏÔ¼´úÂë£º{},¼Û¸ñ£º{},ÊıÁ¿£º{},¿ª²Ö·½Ïò£º{}", pOrder->InstrumentID, pOrder->LimitPrice,
+		m_logger->info("è¯·æ±‚æŸ¥è¯¢æŠ¥å•æˆåŠŸ!åˆçº¦ä»£ç ï¼š{},ä»·æ ¼ï¼š{},æ•°é‡ï¼š{},å¼€ä»“æ–¹å‘ï¼š{}", pOrder->InstrumentID, pOrder->LimitPrice,
 			pOrder->VolumeTotalOriginal, pOrder->Direction);
 		m_logger->flush();
 		this->firsttime_tocsv++;
@@ -271,10 +271,10 @@ void CustomTradeSpi::OnRspQryOrder(CThostFtdcOrderField* pOrder, CThostFtdcRspIn
 	}
 	else {
 		std::cout << "------------------------------------------------" << std::endl;
-		std::cout << " =====ÇëÇó²éÑ¯±¨µ¥Ê§°Ü=====" << std::endl;
+		std::cout << " =====è¯·æ±‚æŸ¥è¯¢æŠ¥å•å¤±è´¥=====" << std::endl;
 		std::cout << "------------------------------------------------" << std::endl;
 
-		m_logger->info("ÇëÇó²éÑ¯±¨µ¥Ê§°Ü");
+		m_logger->info("è¯·æ±‚æŸ¥è¯¢æŠ¥å•å¤±è´¥");
 		m_logger->flush();
 	}
 
@@ -293,11 +293,11 @@ void CustomTradeSpi::OnRspOrderInsert(
 	if (!isErrorRspInfo(pRspInfo))
 	{
 		std::unique_lock<std::mutex> unique(mt);
-		std::cout << "=====±¨µ¥Â¼Èë³É¹¦=====" << std::endl;
-		std::cout << "ºÏÔ¼´úÂë£º " << pInputOrder->InstrumentID << std::endl;
-		std::cout << "¼Û¸ñ£º " << pInputOrder->LimitPrice << std::endl;
-		std::cout << "ÊıÁ¿£º " << pInputOrder->VolumeTotalOriginal << std::endl;
-		std::cout << "¿ª²Ö·½Ïò£º " << pInputOrder->Direction << std::endl;
+		std::cout << "=====æŠ¥å•å½•å…¥æˆåŠŸ=====" << std::endl;
+		std::cout << "åˆçº¦ä»£ç ï¼š " << pInputOrder->InstrumentID << std::endl;
+		std::cout << "ä»·æ ¼ï¼š " << pInputOrder->LimitPrice << std::endl;
+		std::cout << "æ•°é‡ï¼š " << pInputOrder->VolumeTotalOriginal << std::endl;
+		std::cout << "å¼€ä»“æ–¹å‘ï¼š " << pInputOrder->Direction << std::endl;
 	}
 }
 
@@ -310,9 +310,9 @@ void CustomTradeSpi::OnRspOrderAction(
 	if (!isErrorRspInfo(pRspInfo))
 	{
 		std::unique_lock<std::mutex> unique(mt);
-		std::cout << "=====±¨µ¥²Ù×÷³É¹¦=====" << std::endl;
-		std::cout << "ºÏÔ¼´úÂë£º " << pInputOrderAction->InstrumentID << std::endl;
-		std::cout << "²Ù×÷±êÖ¾£º " << pInputOrderAction->ActionFlag;
+		std::cout << "=====æŠ¥å•æ“ä½œæˆåŠŸ=====" << std::endl;
+		std::cout << "åˆçº¦ä»£ç ï¼š " << pInputOrderAction->InstrumentID << std::endl;
+		std::cout << "æ“ä½œæ ‡å¿—ï¼š " << pInputOrderAction->ActionFlag;
 	}
 }
 
@@ -321,32 +321,32 @@ void CustomTradeSpi::OnRtnOrder(CThostFtdcOrderField* pOrder)
 	std::unique_lock<std::mutex> unique(mt);
 	char str[10];
 	sprintf(str, "%d", pOrder->OrderSubmitStatus);
-	int orderState = atoi(str) - 48;	//±¨µ¥×´Ì¬0=ÒÑ¾­Ìá½»£¬3=ÒÑ¾­½ÓÊÜ
+	int orderState = atoi(str) - 48;	//æŠ¥å•çŠ¶æ€0=å·²ç»æäº¤ï¼Œ3=å·²ç»æ¥å—
 
-	//std::cout << "=====ÊÕµ½±¨µ¥Ó¦´ğ=====" << std::endl;
+	//std::cout << "=====æ”¶åˆ°æŠ¥å•åº”ç­”=====" << std::endl;
 
 	if (isMyOrder(pOrder))
 	{
 		if (isTradingOrder(pOrder))
 		{
-			std::cout << "--->>> µÈ´ı³É½»ÖĞ£¡" << std::endl;
-			//reqOrderAction(pOrder); // ÕâÀï¿ÉÒÔ³·µ¥
-			//reqUserLogout(); // µÇ³ö²âÊÔ
+			std::cout << "--->>> ç­‰å¾…æˆäº¤ä¸­ï¼" << std::endl;
+			//reqOrderAction(pOrder); // è¿™é‡Œå¯ä»¥æ’¤å•
+			//reqUserLogout(); // ç™»å‡ºæµ‹è¯•
 		}
 		else if (pOrder->OrderStatus == THOST_FTDC_OST_Canceled)
-			std::cout << "--->>> ³·µ¥³É¹¦£¡" << std::endl;
+			std::cout << "--->>> æ’¤å•æˆåŠŸï¼" << std::endl;
 	}
 }
 
 void CustomTradeSpi::OnRtnTrade(CThostFtdcTradeField* pTrade)
 {
 	std::unique_lock<std::mutex> unique(mt);
-	std::cout << "=====±¨µ¥³É¹¦³É½»=====" << std::endl;
-	std::cout << "³É½»Ê±¼ä£º " << pTrade->TradeTime << std::endl;
-	std::cout << "ºÏÔ¼´úÂë£º " << pTrade->InstrumentID << std::endl;
-	std::cout << "³É½»¼Û¸ñ£º " << pTrade->Price << std::endl;
-	std::cout << "³É½»Á¿£º " << pTrade->Volume << std::endl;
-	std::cout << "¿ªÆ½²Ö·½Ïò£º " << pTrade->Direction << std::endl;
+	std::cout << "=====æŠ¥å•æˆåŠŸæˆäº¤=====" << std::endl;
+	std::cout << "æˆäº¤æ—¶é—´ï¼š " << pTrade->TradeTime << std::endl;
+	std::cout << "åˆçº¦ä»£ç ï¼š " << pTrade->InstrumentID << std::endl;
+	std::cout << "æˆäº¤ä»·æ ¼ï¼š " << pTrade->Price << std::endl;
+	std::cout << "æˆäº¤é‡ï¼š " << pTrade->Volume << std::endl;
+	std::cout << "å¼€å¹³ä»“æ–¹å‘ï¼š " << pTrade->Direction << std::endl;
 }
 
 bool CustomTradeSpi::isErrorRspInfo(CThostFtdcRspInfoField* pRspInfo)
@@ -354,10 +354,10 @@ bool CustomTradeSpi::isErrorRspInfo(CThostFtdcRspInfoField* pRspInfo)
 	std::unique_lock<std::mutex> unique(mt);
 	bool bResult = pRspInfo && (pRspInfo->ErrorID != 0);
 	if (bResult) {
-		std::cout << "·µ»Ø´íÎó--->>> ErrorID=" << pRspInfo->ErrorID << ", ErrorMsg=" << pRspInfo->ErrorMsg << std::endl;
+		std::cout << "è¿”å›é”™è¯¯--->>> ErrorID=" << pRspInfo->ErrorID << ", ErrorMsg=" << pRspInfo->ErrorMsg << std::endl;
 		this->taskdone = true;
 
-		m_logger->error("·µ»Ø´íÎó,ErrorID={},ErrorMsg={}", pRspInfo->ErrorID, pRspInfo->ErrorMsg);
+		m_logger->error("è¿”å›é”™è¯¯,ErrorID={},ErrorMsg={}", pRspInfo->ErrorID, pRspInfo->ErrorMsg);
 		m_logger->flush();
 	}
 
@@ -373,25 +373,25 @@ void CustomTradeSpi::reqUserLogin()
 	strcpy(loginReq.BrokerID, gBrokerID);
 	strcpy(loginReq.UserID, gInvesterID);
 	strcpy(loginReq.Password, gInvesterPassword);
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 	int rt = g_pTradeUserApi->ReqUserLogin(&loginReq, requestID);
 	if (!rt)
 	{
 		std::cout << "------------------------------------------------" << std::endl;
-		std::cout << ">>>>>>·¢ËÍµÇÂ¼ÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€ç™»å½•è¯·æ±‚æˆåŠŸ" << std::endl;
 		std::cout << "------------------------------------------------" << std::endl;
 
-		m_logger->info("·¢ËÍµÇÂ¼ÇëÇó³É¹¦");
+		m_logger->info("å‘é€ç™»å½•è¯·æ±‚æˆåŠŸ");
 		m_logger->flush();
 
 	}
 	else
 	{
 		std::cout << "------------------------------------------------" << std::endl;
-		std::cout << "--->>>·¢ËÍµÇÂ¼ÇëÇóÊ§°Ü" << std::endl;
+		std::cout << "--->>>å‘é€ç™»å½•è¯·æ±‚å¤±è´¥" << std::endl;
 		std::cout << "------------------------------------------------" << std::endl;
 
-		m_logger->error("·¢ËÍµÇÂ¼ÇëÇóÊ§°Ü");
+		m_logger->error("å‘é€ç™»å½•è¯·æ±‚å¤±è´¥");
 		m_logger->flush();
 	}
 
@@ -404,12 +404,12 @@ void CustomTradeSpi::reqUserLogout()
 	memset(&logoutReq, 0, sizeof(logoutReq));
 	strcpy(logoutReq.BrokerID, gBrokerID);
 	strcpy(logoutReq.UserID, gInvesterID);
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 	int rt = g_pTradeUserApi->ReqUserLogout(&logoutReq, requestID);
 	if (!rt)
-		std::cout << ">>>>>>·¢ËÍµÇ³öÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€ç™»å‡ºè¯·æ±‚æˆåŠŸ" << std::endl;
 	else
-		std::cerr << "--->>>·¢ËÍµÇ³öÇëÇóÊ§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€ç™»å‡ºè¯·æ±‚å¤±è´¥" << std::endl;
 }
 
 
@@ -420,12 +420,12 @@ void CustomTradeSpi::reqSettlementInfoConfirm()
 	memset(&settlementConfirmReq, 0, sizeof(settlementConfirmReq));
 	strcpy(settlementConfirmReq.BrokerID, gBrokerID);
 	strcpy(settlementConfirmReq.InvestorID, gInvesterID);
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 	int rt = g_pTradeUserApi->ReqSettlementInfoConfirm(&settlementConfirmReq, requestID);
 	if (!rt)
-		std::cout << ">>>>>>·¢ËÍÍ¶×ÊÕß½áËã½á¹ûÈ·ÈÏÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€æŠ•èµ„è€…ç»“ç®—ç»“æœç¡®è®¤è¯·æ±‚æˆåŠŸ" << std::endl;
 	else
-		std::cerr << "--->>>·¢ËÍÍ¶×ÊÕß½áËã½á¹ûÈ·ÈÏÇëÇóÊ§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€æŠ•èµ„è€…ç»“ç®—ç»“æœç¡®è®¤è¯·æ±‚å¤±è´¥" << std::endl;
 }
 
 void CustomTradeSpi::reqQueryInstrument()
@@ -434,12 +434,12 @@ void CustomTradeSpi::reqQueryInstrument()
 	CThostFtdcQryInstrumentField instrumentReq;
 	memset(&instrumentReq, 0, sizeof(instrumentReq));
 	strcpy(instrumentReq.InstrumentID, g_pTradeInstrumentID);
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 	int rt = g_pTradeUserApi->ReqQryInstrument(&instrumentReq, requestID);
 	if (!rt)
-		std::cout << ">>>>>>·¢ËÍºÏÔ¼²éÑ¯ÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€åˆçº¦æŸ¥è¯¢è¯·æ±‚æˆåŠŸ" << std::endl;
 	else
-		std::cerr << "--->>>·¢ËÍºÏÔ¼²éÑ¯ÇëÇóÊ§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€åˆçº¦æŸ¥è¯¢è¯·æ±‚å¤±è´¥" << std::endl;
 }
 
 void CustomTradeSpi::reqQueryTradingAccount()
@@ -449,14 +449,14 @@ void CustomTradeSpi::reqQueryTradingAccount()
 	memset(&tradingAccountReq, 0, sizeof(tradingAccountReq));
 	strcpy(tradingAccountReq.BrokerID, gBrokerID);
 	strcpy(tradingAccountReq.InvestorID, gInvesterID);
-	static int requestID = 0; // ÇëÇó±àºÅ
-	std::this_thread::sleep_for(std::chrono::milliseconds(1700)); // ÓĞÊ±ºòĞèÒªÍ£¶ÙÒ»»á²ÅÄÜ²éÑ¯³É¹¦
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
+	std::this_thread::sleep_for(std::chrono::milliseconds(1700)); // æœ‰æ—¶å€™éœ€è¦åœé¡¿ä¸€ä¼šæ‰èƒ½æŸ¥è¯¢æˆåŠŸ
 
 	int rt = g_pTradeUserApi->ReqQryTradingAccount(&tradingAccountReq, requestID);
 	if (!rt)
-		std::cout << ">>>>>>·¢ËÍÍ¶×ÊÕß×Ê½ğÕË»§²éÑ¯ÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€æŠ•èµ„è€…èµ„é‡‘è´¦æˆ·æŸ¥è¯¢è¯·æ±‚æˆåŠŸ" << std::endl;
 	else
-		std::cerr << "--->>>·¢ËÍÍ¶×ÊÕß×Ê½ğÕË»§²éÑ¯ÇëÇóÊ§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€æŠ•èµ„è€…èµ„é‡‘è´¦æˆ·æŸ¥è¯¢è¯·æ±‚å¤±è´¥" << std::endl;
 }
 
 void CustomTradeSpi::reqQueryInvestorPosition()
@@ -467,47 +467,49 @@ void CustomTradeSpi::reqQueryInvestorPosition()
 	strcpy(postionReq.BrokerID, gBrokerID);
 	strcpy(postionReq.InvestorID, gInvesterID);
 	strcpy(postionReq.InstrumentID, g_pTradeInstrumentID);
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 
-	std::this_thread::sleep_for(std::chrono::milliseconds(1700)); // ÓĞÊ±ºòĞèÒªÍ£¶ÙÒ»»á²ÅÄÜ²éÑ¯³É¹¦
+	std::this_thread::sleep_for(std::chrono::milliseconds(1700)); // æœ‰æ—¶å€™éœ€è¦åœé¡¿ä¸€ä¼šæ‰èƒ½æŸ¥è¯¢æˆåŠŸ
 
 	int rt = g_pTradeUserApi->ReqQryInvestorPosition(&postionReq, requestID);
 	if (!rt)
-		std::cout << ">>>>>>·¢ËÍÍ¶×ÊÕß³Ö²Ö²éÑ¯ÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€æŠ•èµ„è€…æŒä»“æŸ¥è¯¢è¯·æ±‚æˆåŠŸ" << std::endl;
 	else
-		std::cerr << "--->>>·¢ËÍÍ¶×ÊÕß³Ö²Ö²éÑ¯ÇëÇóÊ§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€æŠ•èµ„è€…æŒä»“æŸ¥è¯¢è¯·æ±‚å¤±è´¥" << std::endl;
 }
 
-void CustomTradeSpi::reqQryOrder() // ÇëÇó²éÑ¯±¨µ¥
-{
+void CustomTradeSpi::reqQryOrder() // è¯·æ±‚æŸ¥è¯¢æŠ¥å•
+{	
+
+	//å®é™…æ²¡æœ‰ä¼ å…¥InstrumentIDï¼Œå°±ä¼šæŸ¥è¯¢è¯¥ç”¨æˆ·çš„æ‰€æœ‰å·²ä¸‹å•çš„æ ‡çš„
 	std::unique_lock<std::mutex> unique(mt);
 	CThostFtdcQryOrderField pQryOrder;
 	memset(&pQryOrder, 0, sizeof(pQryOrder));
 	strcpy(pQryOrder.BrokerID, gBrokerID);
 	strcpy(pQryOrder.InvestorID, gInvesterID);
 	//strcpy(pQryOrder.InstrumentID, g_pTradeInstrumentID);
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 
-	std::this_thread::sleep_for(std::chrono::milliseconds(1700)); // ÓĞÊ±ºòĞèÒªÍ£¶ÙÒ»»á²ÅÄÜ²éÑ¯³É¹¦
+	std::this_thread::sleep_for(std::chrono::milliseconds(1700)); // æœ‰æ—¶å€™éœ€è¦åœé¡¿ä¸€ä¼šæ‰èƒ½æŸ¥è¯¢æˆåŠŸ
 
 	int rt = g_pTradeUserApi->ReqQryOrder(&pQryOrder, requestID);
 	if (!rt)
 	{
 		std::cout << "------------------------------------------------" << std::endl;
-		std::cout << ">>>>>>·¢ËÍÇëÇó²éÑ¯±¨µ¥³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€è¯·æ±‚æŸ¥è¯¢æŠ¥å•æˆåŠŸ" << std::endl;
 		std::cout << "------------------------------------------------" << std::endl;
 
-		m_logger->info("·¢ËÍÇëÇó²éÑ¯±¨µ¥³É¹¦");
+		m_logger->info("å‘é€è¯·æ±‚æŸ¥è¯¢æŠ¥å•æˆåŠŸ");
 		m_logger->flush();
 	}
 
 	else
 	{
 		std::cout << "------------------------------------------------" << std::endl;
-		std::cerr << "--->>>·¢ËÍÇëÇó²éÑ¯±¨µ¥Ê§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€è¯·æ±‚æŸ¥è¯¢æŠ¥å•å¤±è´¥" << std::endl;
 		std::cout << "------------------------------------------------" << std::endl;
 
-		m_logger->info("·¢ËÍÇëÇó²éÑ¯±¨µ¥Ê§°Ü");
+		m_logger->info("å‘é€è¯·æ±‚æŸ¥è¯¢æŠ¥å•å¤±è´¥");
 		m_logger->flush();
 	}
 
@@ -517,48 +519,48 @@ void CustomTradeSpi::reqOrderInsert()
 	std::unique_lock<std::mutex> unique(mt);
 	CThostFtdcInputOrderField orderInsertReq;
 	memset(&orderInsertReq, 0, sizeof(orderInsertReq));
-	///¾­¼Í¹«Ë¾´úÂë
+	///ç»çºªå…¬å¸ä»£ç 
 	strcpy(orderInsertReq.BrokerID, gBrokerID);
-	///Í¶×ÊÕß´úÂë
+	///æŠ•èµ„è€…ä»£ç 
 	strcpy(orderInsertReq.InvestorID, gInvesterID);
-	///ºÏÔ¼´úÂë
+	///åˆçº¦ä»£ç 
 	strcpy(orderInsertReq.InstrumentID, g_pTradeInstrumentID);
-	///±¨µ¥ÒıÓÃ
+	///æŠ¥å•å¼•ç”¨
 	strcpy(orderInsertReq.OrderRef, order_ref);
-	///±¨µ¥¼Û¸ñÌõ¼ş: ÏŞ¼Û
+	///æŠ¥å•ä»·æ ¼æ¡ä»¶: é™ä»·
 	orderInsertReq.OrderPriceType = THOST_FTDC_OPT_LimitPrice;
-	///ÂòÂô·½Ïò: 
+	///ä¹°å–æ–¹å‘: 
 	//orderInsertReq.Direction = gTradeDirection;
 	orderInsertReq.Direction = THOST_FTDC_D_Buy;
-	///×éºÏ¿ªÆ½±êÖ¾: ¿ª²Ö
+	///ç»„åˆå¼€å¹³æ ‡å¿—: å¼€ä»“
 	orderInsertReq.CombOffsetFlag[0] = THOST_FTDC_OF_Open;
-	///×éºÏÍ¶»úÌ×±£±êÖ¾
+	///ç»„åˆæŠ•æœºå¥—ä¿æ ‡å¿—
 	orderInsertReq.CombHedgeFlag[0] = THOST_FTDC_HF_Speculation;
-	///¼Û¸ñ
+	///ä»·æ ¼
 	orderInsertReq.LimitPrice = gLimitPrice;
-	///ÊıÁ¿£º1
+	///æ•°é‡ï¼š1
 	orderInsertReq.VolumeTotalOriginal = 1;
-	///ÓĞĞ§ÆÚÀàĞÍ: µ±ÈÕÓĞĞ§
+	///æœ‰æ•ˆæœŸç±»å‹: å½“æ—¥æœ‰æ•ˆ
 	orderInsertReq.TimeCondition = THOST_FTDC_TC_GFD;
-	///³É½»Á¿ÀàĞÍ: ÈÎºÎÊıÁ¿
+	///æˆäº¤é‡ç±»å‹: ä»»ä½•æ•°é‡
 	orderInsertReq.VolumeCondition = THOST_FTDC_VC_AV;
-	///×îĞ¡³É½»Á¿: 1
+	///æœ€å°æˆäº¤é‡: 1
 	orderInsertReq.MinVolume = 1;
-	///´¥·¢Ìõ¼ş: Á¢¼´
+	///è§¦å‘æ¡ä»¶: ç«‹å³
 	orderInsertReq.ContingentCondition = THOST_FTDC_CC_Immediately;
-	///Ç¿Æ½Ô­Òò: ·ÇÇ¿Æ½
+	///å¼ºå¹³åŸå› : éå¼ºå¹³
 	orderInsertReq.ForceCloseReason = THOST_FTDC_FCC_NotForceClose;
-	///×Ô¶¯¹ÒÆğ±êÖ¾: ·ñ
+	///è‡ªåŠ¨æŒ‚èµ·æ ‡å¿—: å¦
 	orderInsertReq.IsAutoSuspend = 0;
-	///ÓÃ»§Ç¿ÆÀ±êÖ¾: ·ñ
+	///ç”¨æˆ·å¼ºè¯„æ ‡å¿—: å¦
 	orderInsertReq.UserForceClose = 0;
 
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 	int rt = g_pTradeUserApi->ReqOrderInsert(&orderInsertReq, ++requestID);
 	if (!rt)
-		std::cout << ">>>>>>·¢ËÍ±¨µ¥Â¼ÈëÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€æŠ¥å•å½•å…¥è¯·æ±‚æˆåŠŸ" << std::endl;
 	else
-		std::cerr << "--->>>·¢ËÍ±¨µ¥Â¼ÈëÇëÇóÊ§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€æŠ¥å•å½•å…¥è¯·æ±‚å¤±è´¥" << std::endl;
 }
 
 void CustomTradeSpi::reqOrderInsert(
@@ -569,91 +571,91 @@ void CustomTradeSpi::reqOrderInsert(
 {
 	CThostFtdcInputOrderField orderInsertReq;
 	memset(&orderInsertReq, 0, sizeof(orderInsertReq));
-	///¾­¼Í¹«Ë¾´úÂë
+	///ç»çºªå…¬å¸ä»£ç 
 	strcpy(orderInsertReq.BrokerID, gBrokerID);
-	///Í¶×ÊÕß´úÂë
+	///æŠ•èµ„è€…ä»£ç 
 	strcpy(orderInsertReq.InvestorID, gInvesterID);
-	///ºÏÔ¼´úÂë
+	///åˆçº¦ä»£ç 
 	strcpy(orderInsertReq.InstrumentID, instrumentID);
-	///±¨µ¥ÒıÓÃ
+	///æŠ¥å•å¼•ç”¨
 	strcpy(orderInsertReq.OrderRef, order_ref);
-	///±¨µ¥¼Û¸ñÌõ¼ş: ÏŞ¼Û
+	///æŠ¥å•ä»·æ ¼æ¡ä»¶: é™ä»·
 	orderInsertReq.OrderPriceType = THOST_FTDC_OPT_LimitPrice;
-	///ÂòÂô·½Ïò: 
+	///ä¹°å–æ–¹å‘: 
 	orderInsertReq.Direction = direction;
-	///×éºÏ¿ªÆ½±êÖ¾: ¿ª²Ö
+	///ç»„åˆå¼€å¹³æ ‡å¿—: å¼€ä»“
 	orderInsertReq.CombOffsetFlag[0] = THOST_FTDC_OF_Open;
-	///×éºÏÍ¶»úÌ×±£±êÖ¾
+	///ç»„åˆæŠ•æœºå¥—ä¿æ ‡å¿—
 	orderInsertReq.CombHedgeFlag[0] = THOST_FTDC_HF_Speculation;
-	///¼Û¸ñ
+	///ä»·æ ¼
 	orderInsertReq.LimitPrice = price;
-	///ÊıÁ¿£º1
+	///æ•°é‡ï¼š1
 	orderInsertReq.VolumeTotalOriginal = volume;
-	///ÓĞĞ§ÆÚÀàĞÍ: µ±ÈÕÓĞĞ§
+	///æœ‰æ•ˆæœŸç±»å‹: å½“æ—¥æœ‰æ•ˆ
 	orderInsertReq.TimeCondition = THOST_FTDC_TC_GFD;
-	///³É½»Á¿ÀàĞÍ: ÈÎºÎÊıÁ¿
+	///æˆäº¤é‡ç±»å‹: ä»»ä½•æ•°é‡
 	orderInsertReq.VolumeCondition = THOST_FTDC_VC_AV;
-	///×îĞ¡³É½»Á¿: 1
+	///æœ€å°æˆäº¤é‡: 1
 	orderInsertReq.MinVolume = 1;
-	///´¥·¢Ìõ¼ş: Á¢¼´
+	///è§¦å‘æ¡ä»¶: ç«‹å³
 	orderInsertReq.ContingentCondition = THOST_FTDC_CC_Immediately;
-	///Ç¿Æ½Ô­Òò: ·ÇÇ¿Æ½
+	///å¼ºå¹³åŸå› : éå¼ºå¹³
 	orderInsertReq.ForceCloseReason = THOST_FTDC_FCC_NotForceClose;
-	///×Ô¶¯¹ÒÆğ±êÖ¾: ·ñ
+	///è‡ªåŠ¨æŒ‚èµ·æ ‡å¿—: å¦
 	orderInsertReq.IsAutoSuspend = 0;
-	///ÓÃ»§Ç¿ÆÀ±êÖ¾: ·ñ
+	///ç”¨æˆ·å¼ºè¯„æ ‡å¿—: å¦
 	orderInsertReq.UserForceClose = 0;
 
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 	int rt = g_pTradeUserApi->ReqOrderInsert(&orderInsertReq, ++requestID);
 	if (!rt)
-		std::cout << ">>>>>>·¢ËÍ±¨µ¥Â¼ÈëÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€æŠ¥å•å½•å…¥è¯·æ±‚æˆåŠŸ" << std::endl;
 	else
-		std::cerr << "--->>>·¢ËÍ±¨µ¥Â¼ÈëÇëÇóÊ§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€æŠ¥å•å½•å…¥è¯·æ±‚å¤±è´¥" << std::endl;
 }
 
 void CustomTradeSpi::reqOrderAction(CThostFtdcOrderField* pOrder)
 {
-	static bool orderActionSentFlag = false; // ÊÇ·ñ·¢ËÍÁË±¨µ¥
+	static bool orderActionSentFlag = false; // æ˜¯å¦å‘é€äº†æŠ¥å•
 	if (orderActionSentFlag)
 		return;
 
 	CThostFtdcInputOrderActionField orderActionReq;
 	memset(&orderActionReq, 0, sizeof(orderActionReq));
-	///¾­¼Í¹«Ë¾´úÂë
+	///ç»çºªå…¬å¸ä»£ç 
 	strcpy(orderActionReq.BrokerID, pOrder->BrokerID);
-	///Í¶×ÊÕß´úÂë
+	///æŠ•èµ„è€…ä»£ç 
 	strcpy(orderActionReq.InvestorID, pOrder->InvestorID);
-	///±¨µ¥²Ù×÷ÒıÓÃ
+	///æŠ¥å•æ“ä½œå¼•ç”¨
 	//	TThostFtdcOrderActionRefType	OrderActionRef;
-	///±¨µ¥ÒıÓÃ
+	///æŠ¥å•å¼•ç”¨
 	strcpy(orderActionReq.OrderRef, pOrder->OrderRef);
-	///ÇëÇó±àºÅ
+	///è¯·æ±‚ç¼–å·
 	//	TThostFtdcRequestIDType	RequestID;
-	///Ç°ÖÃ±àºÅ
+	///å‰ç½®ç¼–å·
 	orderActionReq.FrontID = trade_front_id;
-	///»á»°±àºÅ
+	///ä¼šè¯ç¼–å·
 	orderActionReq.SessionID = session_id;
-	///½»Ò×Ëù´úÂë
+	///äº¤æ˜“æ‰€ä»£ç 
 	//	TThostFtdcExchangeIDType	ExchangeID;
-	///±¨µ¥±àºÅ
+	///æŠ¥å•ç¼–å·
 	//	TThostFtdcOrderSysIDType	OrderSysID;
-	///²Ù×÷±êÖ¾
+	///æ“ä½œæ ‡å¿—
 	orderActionReq.ActionFlag = THOST_FTDC_AF_Delete;
-	///¼Û¸ñ
+	///ä»·æ ¼
 	//	TThostFtdcPriceType	LimitPrice;
-	///ÊıÁ¿±ä»¯
+	///æ•°é‡å˜åŒ–
 	//	TThostFtdcVolumeType	VolumeChange;
-	///ÓÃ»§´úÂë
+	///ç”¨æˆ·ä»£ç 
 	//	TThostFtdcUserIDType	UserID;
-	///ºÏÔ¼´úÂë
+	///åˆçº¦ä»£ç 
 	strcpy(orderActionReq.InstrumentID, pOrder->InstrumentID);
-	static int requestID = 0; // ÇëÇó±àºÅ
+	static int requestID = 0; // è¯·æ±‚ç¼–å·
 	int rt = g_pTradeUserApi->ReqOrderAction(&orderActionReq, ++requestID);
 	if (!rt)
-		std::cout << ">>>>>>·¢ËÍ±¨µ¥²Ù×÷ÇëÇó³É¹¦" << std::endl;
+		std::cout << ">>>>>>å‘é€æŠ¥å•æ“ä½œè¯·æ±‚æˆåŠŸ" << std::endl;
 	else
-		std::cerr << "--->>>·¢ËÍ±¨µ¥²Ù×÷ÇëÇóÊ§°Ü" << std::endl;
+		std::cerr << "--->>>å‘é€æŠ¥å•æ“ä½œè¯·æ±‚å¤±è´¥" << std::endl;
 	orderActionSentFlag = true;
 }
 
@@ -671,7 +673,7 @@ bool CustomTradeSpi::isTradingOrder(CThostFtdcOrderField* pOrder)
 		(pOrder->OrderStatus != THOST_FTDC_OST_AllTraded));
 }
 
-//²éÑ¯±¨µ¥½á¹ûÂ¼ÈëÖÁcsvÎÄ¼ş
+//æŸ¥è¯¢æŠ¥å•ç»“æœå½•å…¥è‡³csvæ–‡ä»¶
 
 bool CustomTradeSpi::isFileExists_ifstream(std::string& name) {
 	std::ifstream f(name.c_str());
@@ -681,8 +683,8 @@ void CustomTradeSpi::qryOrder_to_csv(CThostFtdcOrderField* pOrder)
 {
 
 
-	struct tm* tm;//¸³Öµ½á¹¹ÌåÃû³Æ tm
-	time_t t;//µÃµ½´Ó1970Äê1ÔÂ1ÈÕµ½Ä¿Ç°µÄÃëÊı t
+	struct tm* tm;//èµ‹å€¼ç»“æ„ä½“åç§° tm
+	time_t t;//å¾—åˆ°ä»1970å¹´1æœˆ1æ—¥åˆ°ç›®å‰çš„ç§’æ•° t
 	t = time(NULL);
 	tm = localtime(&t);
 
@@ -695,7 +697,7 @@ void CustomTradeSpi::qryOrder_to_csv(CThostFtdcOrderField* pOrder)
 
 	std::string mydir = year + mon + day;
 
-	int i = _mkdir(mydir.c_str());//´´½¨Ä¿Â¼,Èç¹ûÃ»ÓĞÔò´´½¨
+	int i = _mkdir(mydir.c_str());//åˆ›å»ºç›®å½•,å¦‚æœæ²¡æœ‰åˆ™åˆ›å»º
 
 
 
@@ -707,13 +709,13 @@ void CustomTradeSpi::qryOrder_to_csv(CThostFtdcOrderField* pOrder)
 
 	if (isFileExists_ifstream(filename)&&this->firsttime_tocsv==1)
 	{
-		remove(filename.c_str());//Èç¹ûÎÄ¼ş´æÔÚÔòÉ¾³ı
+		remove(filename.c_str());//å¦‚æœæ–‡ä»¶å­˜åœ¨åˆ™åˆ é™¤
 	}
 
 	outFile.open(filename, std::ios::app);
 
 
-	// Ğ´Èë±êÌâĞĞ
+	// å†™å…¥æ ‡é¢˜è¡Œ
 	if (this->firsttime_tocsv == 1) {
 
 		outFile << "BrokerID" << ','
@@ -784,8 +786,8 @@ void CustomTradeSpi::qryOrder_to_csv(CThostFtdcOrderField* pOrder)
 	
 	
 	//
-	//// ********Ğ´ÈëÊı¾İ*********
-	// Ğ´Èë×Ö·û´®(Êı×Ö)
+	//// ********å†™å…¥æ•°æ®*********
+	// å†™å…¥å­—ç¬¦ä¸²(æ•°å­—)
 	outFile << pOrder->BrokerID << ','
 		<< pOrder->InvestorID << ','
 		<< pOrder->InstrumentID << ','
@@ -869,22 +871,22 @@ void CustomTradeSpi::qryOrder_to_csv(CThostFtdcOrderField* pOrder)
 std::string CustomTradeSpi::getHead(const std::string& str)
 {
 	char c;
-	c = str[1];//¶ÁÈ¡µÚ¶ş¸ö×Ö·û¡£
+	c = str[1];//è¯»å–ç¬¬äºŒä¸ªå­—ç¬¦ã€‚
 	if (c >= '0' && c <= '9')
 	{
-		//printf("ÊÇÊı×Ö\n");
+		//printf("æ˜¯æ•°å­—\n");
 		return str.substr(0, 1);
 	}
 	else  if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
 	{
-		//printf("ÊÇ×ÖÄ¸\n");
+		//printf("æ˜¯å­—æ¯\n");
 		return str.substr(0, 2);
 	}
 
 	else
 	{	
 		
-		printf("ÊÇÌØÊâ×Ö·û\n");
+		printf("æ˜¯ç‰¹æ®Šå­—ç¬¦\n");
 		return str;
 	}
 }
@@ -895,7 +897,7 @@ void CustomTradeSpi::alerttoWechat(CThostFtdcOrderField* pOrder,int smallAlertNu
 	int status = pOrder->OrderStatus;
 	
 
-	if (status == 53)//ÒÑ³·µ¥
+	if (status == 53)//å·²æ’¤å•
 	{
 
 		m_ContractInstmap[contract].push_back(std::make_pair(pOrder->InstrumentID, 2));
@@ -921,7 +923,7 @@ void CustomTradeSpi::alerttoWechat(CThostFtdcOrderField* pOrder,int smallAlertNu
 			sendToWeChat(msgcontent);
 		}
 	}
-	else//ÆäÓàµÄ
+	else//å…¶ä½™çš„
 	{
 		m_ContractInstmap[contract].push_back(std::make_pair(pOrder->InstrumentID, 1));
 		m_ContractNummap[contract] += 1;
